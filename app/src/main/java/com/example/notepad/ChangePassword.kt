@@ -29,9 +29,12 @@ class ChangePassword  : AppCompatActivity() {
     private fun changePasswd(newPasswd : String) {
         val sharedPref = getSharedPreferences("everything", Context.MODE_PRIVATE)
         with (sharedPref.edit()) {
-            putString("password", newPasswd)
+            putString("password", encryptPassword(newPasswd))
             apply()
         }
+        var ret = Intent()
+        ret.putExtra("pass", newPasswd)
+        setResult(0, ret)
         finish()
     }
 }
